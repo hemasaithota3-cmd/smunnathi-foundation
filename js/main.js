@@ -27,50 +27,58 @@
 
 
     if (intro) {
+      // Check if user has already seen the intro in this browser session
+      const hasSeenIntro = sessionStorage.getItem('samunnathiSeenIntro');
 
-      document.body.classList.add(
-        'samunnathi-intro-active'
-      );
+      if (hasSeenIntro) {
+        // If already seen, remove intro instantly without playing
+        intro.remove();
+      } else {
+        // If first time, play the intro and store the flag for this session
+        sessionStorage.setItem('samunnathiSeenIntro', 'true');
 
-
-      window.setTimeout(
-        function () {
-
-          intro.classList.add(
-            'hide'
-          );
-
-
-          document.body.classList.remove(
-            'samunnathi-intro-active'
-          );
+        document.body.classList.add(
+          'samunnathi-intro-active'
+        );
 
 
-          /*
-             Remove intro after fade animation.
-          */
+        window.setTimeout(
+          function () {
 
-          window.setTimeout(
-            function () {
-
-              if (
-                intro &&
-                intro.parentNode
-              ) {
-
-                intro.remove();
-
-              }
-
-            },
-            900
-          );
+            intro.classList.add(
+              'hide'
+            );
 
 
-        },
-        3200
-      );
+            document.body.classList.remove(
+              'samunnathi-intro-active'
+            );
 
+
+            /*
+               Remove intro after fade animation.
+            */
+
+            window.setTimeout(
+              function () {
+
+                if (
+                  intro &&
+                  intro.parentNode
+                ) {
+
+                  intro.remove();
+
+                }
+
+              },
+              900
+            );
+
+          },
+          3200
+        );
+      }
     }
 
 
@@ -820,8 +828,8 @@
       function animate() {
 
         /*
-           Keep auto-scrolling unless
-           reduced motion is requested.
+            Keep auto-scrolling unless
+            reduced motion is requested.
         */
 
         if (
